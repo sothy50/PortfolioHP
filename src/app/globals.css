@@ -1,27 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Monoton&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --whiteground: 55 97% 98%;
+    --background: 55 92% 88%;
+    --foreground:55 92% 95%;
+    
+    --primary-dark: 27 83% 26%;
+    --primary: 27 73% 26%;
+    --primary-light: 45 93% 47%;
+ 
+    --secondary: 240 4% 16%;
+ 
+    --accent: 210 40% 96.1%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 27 73% 26%;
+    --foreground: 27 60% 75%;
+ 
+    --primary: 55 97% 88%;
+    --primary-light: 50 98% 64%;
+ 
+    --secondary: 240 4% 16%;
+ 
+    --accent: 55 100% 55%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
   }
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

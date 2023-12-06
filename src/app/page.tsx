@@ -1,113 +1,218 @@
-import Image from 'next/image'
+"use client";
+import ModeToggle from '@/components/ui/modetoggle';
+import Terminal from '@/components/ui/terminal';
+import Latestpost from '@/components/widgets/latestpost';
+import ModalWindow from '@/components/widgets/modalwindow';
+import { Button } from '@/components/ui/button';
+import Link from "next/link"
+import { Input } from "@/components/ui/input"
+import HeaderItem from '@/components/widgets/headeritem';
+import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import React, { useState } from 'react';
 
 export default function Home() {
+  const [isModalOpen, setModalOpen] = useState(false);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+    {isModalOpen && (
+      <ModalWindow closeModal={() => setModalOpen(false)} />
+    )}
+    <div className="flex h-screen w-full bg-foreground">
+      <div className="flex flex-col w-72 border-r border-yellow-200 bg-background">
+        <div className="flex items-center h-16 px-6 border-b border-yellow-200 bg-background">
+          <Link href="#">
+          <h1 className="text-3xl font-monoton text-primary">Portfolio</h1>
+          </Link>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          <div className="py-4 space-y-2">
+            <Button className="justify-start text-primary hover:text-primary hover:bg-yellow-200 dark:hover:bg-yellow-800" variant="ghost" onClick={() => setModalOpen(true)}>
+              <IconPerson className="h-5 w-5 text-primary-light" />
+              <span className="ml-2">Profile</span>
+            </Button>
+            <Button className="justify-start text-primary hover:text-primary hover:bg-yellow-200 dark:hover:bg-yellow-800" variant="ghost">
+              <IconFolder className="h-5 w-5 text-primary-light" />
+              <span className="ml-2">Production</span>
+            </Button>
+          </div>
+          <div className="border-t border-yellow-200 dark:border-yellow-800" />
+          <div className="p-4 space-y-2">
+            <div className="flex items-center justify-between px-2 py-1 rounded-lg bg-yellow-200 dark:bg-yellow-800">
+              <span className="text-sm text-primary">All</span>
+              <IconChevronRight className="h-5 w-5 text-primary-light" />
+            </div>
+            <div className="flex items-center justify-between px-2 py-1 rounded-lg hover:bg-yellow-200 dark:hover:bg-yellow-800">
+              <span className="text-sm text-primary">Qiita</span>
+              <IconChevronRight className="h-5 w-5 text-primary-light" />
+            </div>
+            <div className="flex items-center justify-between px-2 py-1 rounded-lg hover:bg-yellow-200 dark:hover:bg-yellow-800">
+              <span className="text-sm text-primary">Zenn</span>
+              <IconChevronRight className="h-5 w-5 text-primary-light" />
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <div className='flex h-16 justify-between bg-background'>
+          <form className="p-2">
+            <div className="relative ">
+              <IconSearch className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <Input className="pl-8 bg-foreground text-primary" placeholder="Search..." type="search" />
+            </div>
+          </form>
+          <HeaderItem setModalOpen={setModalOpen} />
+        </div>
+          <div className="flex-1 p-6 overflow-y-auto space-y-4 ">
+            <Card className="text-primary">
+              <CardHeader>
+                <CardTitle>Upcoming Appointments</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>5 appointments scheduled for today.</p>
+              </CardContent>
+            </Card>
+            <Card className="text-primary">
+              <CardHeader>
+                <CardTitle>Appointment History</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>100 appointments in the last month.</p>
+              </CardContent>
+            </Card>
+            <Card className="text-primary">
+              <CardHeader>
+                <CardTitle>Staff Scheduling</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>All staff are available today.</p>
+              </CardContent>
+            </Card>
+            <Card className="text-primary">
+              <CardHeader>
+                <CardTitle>Customer Details</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>50 new customers this week.</p>
+              </CardContent>
+            </Card>
+          </div>
       </div>
+    </div>
+  </>
+  )
+}
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+function IconLogo(props:React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+      <line x1="4" x2="4" y1="22" y2="15" />
+    </svg>
+  )
+}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+function IconSearch(props:React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
+  )
+}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+function IconChevronRight(props:React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  )
+}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+
+function IconFolder(props:React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
+    </svg>
+  )
+}
+
+
+function IconNote(props:React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M15.5 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z" />
+      <path d="M15 3v6h6" />
+    </svg>
+  )
+}
+
+
+function IconPerson(props:React.SVGProps<SVGSVGElement>) {
+  return (
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="7" r="5"/><path d="M17 14h.352a3 3 0 0 1 2.976 2.628l.391 3.124A2 2 0 0 1 18.734 22H5.266a2 2 0 0 1-1.985-2.248l.39-3.124A3 3 0 0 1 6.649 14H7"/></svg>
   )
 }
