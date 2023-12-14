@@ -1,5 +1,5 @@
 //"use client";
-import Terminal from '../ui/terminal';
+import Terminal from './terminal';
 import React, { useState } from 'react';
 interface ModalProps {
     closeModal: () => void;
